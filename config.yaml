@@ -1,0 +1,7 @@
+
+path: E:/data_sets/vehicle-detection.v3i.yolov8  # dataset root dir
+train: train/images  # train images (relative to 'path')
+val: val/images  # val images (relative to 'path')
+
+nc: 6  # number of classes
+names: ['bus', 'car', 'microbus', 'motorbike', 'pickup-van', 'truck']
