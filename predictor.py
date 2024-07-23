@@ -101,7 +101,7 @@ for video_file in video_files:
     for class_id in vehicle_class_ids:
         class_name = class_list[class_id]
         count = vehicle_counts[class_id]
-        cv2.putText(frame, f'{class_name}: {count}', (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, f'{class_name}: {count}', (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         y_offset += 50
 
     cv2.imwrite(output_image_path, frame)

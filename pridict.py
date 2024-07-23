@@ -14,9 +14,9 @@ ret, frame = cap.read()
 H, W, _ = frame.shape
 out = cv2.VideoWriter(video_path_out, cv2.VideoWriter_fourcc(*'MP4V'), int(cap.get(cv2.CAP_PROP_FPS)), (W, H))
 
-model_path = os.path.join('ourBest.pt')
+model_path = os.path.join('bestbest.pt')
 
-model = YOLO("yolov8x.pt")
+model = YOLO("bestbest.pt")
 
 threshold = 0.3
 
@@ -36,9 +36,12 @@ while ret:
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x1) + text_width, int(y1) - text_height - baseline), (0, 255, 0), -1)
 
-            cv2.putText(frame, text, (int(x1), int(y1) - baseline), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-    cv2.putText(frame, f'Cars detected: {car_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
-    out.write(frame)
+            cv2.putText(frame, text, (int(x1), int(y1) - baseline), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(frame, f'Cars detected: {car_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.imshow("frame",frame) 
+    if cv2.waitKey(30) & 0xFF == ord('q'):
+            break
+    # out.write(frame)
     ret, frame = cap.read()
 
 cap.release()

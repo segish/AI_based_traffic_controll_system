@@ -3,8 +3,8 @@ from ultralytics import YOLO
 import cv2
 
 # Path to the input image
-image_path = './images/input_images/imhh.png'  
-output_image_path = './images/output_images/imhh.png'  
+image_path = './images/input_images/im4.webp'  
+output_image_path = './images/output_images/im42.jpg'  
 
 # Load the model
 model_path = 'yolov8x.pt'  # Path to the YOLO model weights
@@ -38,7 +38,7 @@ for result in results.boxes.data.tolist():
         car_count += 1
 
 # Print the number of cars detected on the image
-cv2.putText(frame, f'{car_count} vehicles', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
+cv2.putText(frame, f'{car_count} vehicles', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 # Save the annotated image
 cv2.imwrite(output_image_path, frame)

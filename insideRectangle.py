@@ -24,7 +24,7 @@ output_dir = 'output_images'  # Directory to save the annotated images
 os.makedirs(output_dir, exist_ok=True)
 
 # Load the model
-model_path = 'yolov8x.pt'
+model_path = 'bestbest.pt'
 model = YOLO(model_path)
 
 # Get list of video files in the directory
@@ -34,7 +34,7 @@ video_files = [f for f in os.listdir(VIDEOS_DIR) if f.endswith('.mp4')]
 vehicle_class_ids = [2, 3, 5, 7]
 
 # Define the rectangle coordinates
-rect_points = np.array([(4, 710), (613, 14), (747, 12), (1278, 478)], np.int32)
+rect_points = np.array([(13, 355), (604, 356), (364, 4), (141, 13)], np.int32)
 rect_points = rect_points.reshape((-1, 1, 2))
 
 def is_point_in_polygon(polygon, point):
@@ -93,7 +93,7 @@ for video_file in video_files:
                  cv2.putText(frame, text, (int(x1), int(y1) - baseline), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
                  vehicle_count += 1
 
-    cv2.putText(frame, f'Vehicles detected: {vehicle_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, f'Vehicles detected: {vehicle_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Save the annotated image
     cv2.imshow("output_image_path", frame)

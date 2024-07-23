@@ -99,7 +99,7 @@ def process_and_save_frame(frame, frame_idx):
                 car_count += 1
 
     # Print the number of cars detected on the left-hand side
-    cv2.putText(frame, f'Cars detected: {car_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, f'Cars detected: {car_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Save the annotated frame
     output_image_path = os.path.join(output_image_dir, f'frame_{frame_idx}.jpg')

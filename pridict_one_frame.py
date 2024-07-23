@@ -70,7 +70,7 @@ for video_file in video_files:
             
             vehicle_count += 1
 
-    cv2.putText(frame, f'Vehicles detected: {vehicle_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, f'Vehicles detected: {vehicle_count}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     cv2.imwrite(output_image_path, frame)
     laneNumber += 1
