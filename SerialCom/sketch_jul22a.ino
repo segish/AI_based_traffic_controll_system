@@ -50,10 +50,9 @@ void loop() {
     String countdownStr = msg.substring(commaIndex + 1);
     int countdown_start = countdownStr.toInt();
     if (lane == "lane1") {
-      digitalWrite(LED_red1, LOW);
       lane1();
       dis(countdown_start);
-      Serial.println("ack");
+      Serial.println("R");
       digitalWrite(LED_red2, LOW);
       digitalWrite(LED_green1, LOW);
       digitalWrite(LED_yellow2, HIGH);
@@ -62,7 +61,7 @@ void loop() {
     } else if (lane == "lane2") {
       lane2();
       dis(countdown_start);
-      Serial.println("ack");
+      Serial.println("R");
       digitalWrite(LED_red3, LOW);
       digitalWrite(LED_green2, LOW);
       digitalWrite(LED_yellow3, HIGH);
@@ -71,7 +70,7 @@ void loop() {
     } else if (lane == "lane3") {
       lane3();
       dis(countdown_start);
-      Serial.println("ack");
+      Serial.println("R");
       digitalWrite(LED_red4, LOW);
       digitalWrite(LED_green3, LOW);
       digitalWrite(LED_yellow4, HIGH);
@@ -80,7 +79,7 @@ void loop() {
     } else if (lane == "lane4") {
       lane4();
       dis(countdown_start);
-      Serial.println("ack");
+      Serial.println("R");
       digitalWrite(LED_red1, LOW);
       digitalWrite(LED_green4, LOW);
       digitalWrite(LED_red4, LOW);
@@ -100,7 +99,6 @@ void defaultCycle() {
       }
       back();
       
-      digitalWrite(LED_red1, LOW);
       lane1();
       
       delayAndCheckSerial(20);

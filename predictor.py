@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import serial
 
-portVar = "COM2"
+portVar = "COM3"
 
 try:
     serialInst = serial.Serial(portVar, 9600)
@@ -22,7 +22,7 @@ output_dir = 'output_images'  # Directory to save the annotated images
 
 os.makedirs(output_dir, exist_ok=True)
 
-model_path = 'yolov8x.pt'
+model_path = 'bestbest.pt'
 model = YOLO(model_path)
 
 video_files = [f for f in os.listdir(VIDEOS_DIR) if f.endswith('.mp4')]
@@ -41,10 +41,21 @@ weights = {
     5: 1.5,   # Bus
     7: 2.0    # Truck
 }
-rect_points = np.array([(700, 401), (50, 1200), (2207, 1200), (950, 403)], np.int32) #for los_angeles.mp4 
-rect_points_todraw = [(x, y) for x, y in rect_points]
-rect_points_todraw = [(int(x), int(y)) for x, y in rect_points_todraw]
-rect_points = rect_points.reshape((-1, 1, 2))
+# for lane 1
+rect_points_lane1 = np.array([(700, 401), (50, 1200), (2207, 1200), (950, 403)], np.int32)
+rect_points_lane1 = rect_points_lane1.reshape((-1, 1, 2))
+
+# for lane 2
+rect_points_lane2 = np.array([(13, 355), (604, 356), (364, 4), (141, 13)], np.int32) 
+rect_points_lane2 = rect_points_lane2.reshape((-1, 1, 2))
+
+# for lane 3
+rect_points_lane3 = np.array([(837, 635), (757, 248), (913, 239), (1277, 553)], np.int32)
+rect_points_lane3 = rect_points_lane3.reshape((-1, 1, 2))
+
+# for lane 4
+rect_points_lane4 = np.array([(4, 710), (613, 14), (747, 12), (1278, 478)], np.int32) 
+rect_points_lane4 = rect_points_lane4.reshape((-1, 1, 2))
 
 def is_point_in_polygon(polygon, point):
     return cv2.pointPolygonTest(polygon, point, False) >= 0
@@ -55,6 +66,15 @@ for video_file in video_files:
         laneNumber=0
     video_path = os.path.join(VIDEOS_DIR, video_file)
     output_image_path = os.path.join(output_dir, f'{os.path.splitext(video_file)[0]}_detection.jpg')
+
+    if str(os.path.splitext(video_file)[0]) == "lane1":
+        rect_points = rect_points_lane1
+    elif str(os.path.splitext(video_file)[0]) == "lane2":
+        rect_points = rect_points_lane2
+    elif str(os.path.splitext(video_file)[0]) == "lane3":
+        rect_points = rect_points_lane3
+    else:
+        rect_points = rect_points_lane4
 
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
@@ -101,14 +121,8 @@ for video_file in video_files:
     for class_id in vehicle_class_ids:
         class_name = class_list[class_id]
         count = vehicle_counts[class_id]
-        cv2.putText(frame, f'{class_name}: {count}', (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, f'{class_name}: {count}', (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 1, (225, 0, 0), 2, cv2.LINE_AA)
         y_offset += 50
-
-    cv2.imwrite(output_image_path, frame)
-    # cv2.imshow("count", frame)
-    laneNumber += 1
-
-    print(f"Annotated image saved as '{output_image_path}'")
 
     # countdown_start = 2 * sum(vehicle_counts.values())
     countdown_start = (
@@ -117,6 +131,14 @@ for video_file in video_files:
     weights.get(3, 0) * vehicle_counts.get(3, 0) +  # Car
     weights.get(2, 0) * vehicle_counts.get(2, 0)    # Motorcycle
 )
+    cv2.putText(frame, f'GST: {countdown_start}', (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 1, (225, 0, 0), 2, cv2.LINE_AA)
+    cv2.imwrite(output_image_path, frame)
+    cv2.imshow("count", frame)
+    cv2.waitKey(1)
+    laneNumber += 1
+
+    print(f"Annotated image saved as '{output_image_path}'")
+
     countdown_start= round(countdown_start)
     if countdown_start<=5: countdown_start = 5
     if laneNumber == 1:
@@ -132,11 +154,10 @@ for video_file in video_files:
     while True:
         if serialInst.in_waiting > 0:
             arduino_signal = serialInst.read().decode('utf-8').strip()
-            if arduino_signal == 'R':
+            if arduino_signal == 'ack':
                 print("Signal received from Arduino. Proceeding to next video file.")
                 break
-
-    # cv2.destroyAllWindows()
+    cv2.destroyAllWindows()
     cap.release()
 
 serialInst.close()

@@ -1,17 +1,4 @@
-los_angeles.mp4
-(676, 364)   .    
-(444, 677)   .
-(838, 359)          .
-(1327, 675)         .
-new.mp4
-
-
-los_angeles
-(205, 954)
-(720, 382)
-(1748, 952)
-(904, 369)
-rect_points = np.array([(205, 954), (720, 382), (904, 369), (1748, 952)], np.int32) //los_angeles
+rect_points = np.array([(205, 954), (720, 382), (904, 369), (1748, 952)], np.int32) //lane1
 rect_points = np.array([(13, 355), (604, 356), (364, 4), (141, 13)], np.int32)  //lane2
 rect_points = np.array([(837, 635), (757, 248), (913, 239), (1277, 553)], np.int32) //lane3
 rect_points = np.array([(4, 710), (613, 14), (747, 12), (1278, 478)], np.int32) //lane4

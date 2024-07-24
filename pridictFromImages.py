@@ -3,11 +3,11 @@ from ultralytics import YOLO
 import cv2
 
 # Path to the input image
-image_path = './images/input_images/im4.webp'  
-output_image_path = './images/output_images/im42.jpg'  
+image_path = './images/input_images/im2.jpeg'  
+output_image_path = './images/output_images/im42.jpeg'  
 
 # Load the model
-model_path = 'yolov8x.pt'  # Path to the YOLO model weights
+model_path = 'bestbest.pt'  # Path to the YOLO model weights
 model = YOLO(model_path)
 
 # Read the input image
