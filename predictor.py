@@ -22,7 +22,7 @@ output_dir = 'output_images'  # Directory to save the annotated images
 
 os.makedirs(output_dir, exist_ok=True)
 
-model_path = 'bestbest.pt'
+model_path = 'yolov8x.pt'
 model = YOLO(model_path)
 
 video_files = [f for f in os.listdir(VIDEOS_DIR) if f.endswith('.mp4')]
